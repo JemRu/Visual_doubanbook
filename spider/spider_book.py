@@ -13,6 +13,7 @@ sys.setdefaultencoding('utf8')
 
 ####################################################################################################
 per_tag_page    = 4    #每个小标签爬几页
+starpageNumber  = 0    #在第几页开始爬
 per_tag_skip    = 8    #在小标签内跳过的步长，例如1就是每页都爬，2就是1,3,5,7,9
 tag_sleep_time  = 2    #每爬完一个tag休息2分钟
 page_sleep_time = 1    #每爬一个小标签内的一页休息1分钟 
@@ -55,10 +56,11 @@ def GetTag():
 def GetFilmPage(TagName, pangeNumber):
     global classes_name
     global tag_name
-
+    global starpageNumber
+    
     TagUrl  = 'https://book.douban.com/tag/{tag}?start={start}&type=T'
     headers = BrowserHeaders()
-    for pages in range(pangeNumber):
+    for pages in range(starpageNumber, pangeNumber):
         print TagName
         start_num = pages * per_tag_skip * page_step
         print "    crawling page%d..." % (start_num/20 + 1)
