@@ -1,62 +1,4 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-    .link {
-        fill: none;
-        stroke: #555;
-        stroke-opacity: 0.4;
-        stroke-width: 1px;
-    }
-    text {
-        font-family: "Arial Black", Gadget, sans-serif;
-        fill: black;
-        font-weight: bold;
-        font-size: 14px
-    }
-
-    .xAxis .tick text{
-        fill: black;
-    }
-    .grid .tick line{
-        stroke: grey;
-        stroke-dasharray: 5, 10;
-        opacity: 0.7;
-    }
-    .grid path{
-        stroke-width: 0;
-    }
-
-    .node circle {
-        fill: #999;
-    }
-    .node--internal circle {
-        fill: #555;
-    }
-    .node--internal text {
-        font-size: 16px;
-        text-shadow: 0 2px 0 #fff, 0 -2px 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff;
-    }
-    .node--leaf text {
-        fill: white;
-    }
-    .ballG text {
-        fill: white;
-    }
-
-    .shadow {
-        -webkit-filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
-        filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
-    }
-</style>
-
-<body>
-    <svg width="800" height="700"></svg>
-</body>
-<script src="d3.v3.js.min"></script>
-<script src="d3.js"></script>
-<script>
-
-    // main svg
+ // main svg
     var svg = d3.select("svg"),
             width = +svg.attr("width"),
             height = +svg.attr("height"),
@@ -65,7 +7,7 @@
     // x-scale and x-axis
     var experienceName = ["", "Basic 1.0","Alright 2.0","Handy 3.0","Expert 4.0","Guru 5.0"];
     var formatSkillPoints = function (d) {
-        return experienceName[d % 1];
+        return experienceName[d % 6];
     }
     var xScale =  d3.scaleLinear()
             .domain([0,5])
@@ -88,7 +30,7 @@
     var stratify = d3.stratify()            // This D3 API method gives cvs file flat data array dimensions.
             .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
 
-    d3.csv("mydata.csv", row, function(error, data) {
+    d3.csv("/data/writer.csv", row, function(error, data) {
         if (error) throw error;
 
         var root = stratify(data);
@@ -104,7 +46,7 @@
                             + "C" + (d.parent.y + 100) + "," + d.x
                             + " " + (d.parent.y + 100) + "," + d.parent.x
                             + " " + d.parent.y + "," + d.parent.x;
-                });
+                }
 
         // Setup position for every datum; Applying different css classes to parents and leafs.
         var node = g.selectAll(".node")
@@ -164,7 +106,7 @@
                     .attr("transform", "translate(7," + (height - 15) + ")")
                     .call(d3.axisBottom()
                             .scale(xScale)
-                            .ticks(10)
+                            .ticks(5)
                             .tickSize(-height, 0, 0)
                             .tickFormat("")
                     );
@@ -230,4 +172,3 @@
             color: d.color
         };
     }
-</script>
