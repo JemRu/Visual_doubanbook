@@ -6,7 +6,6 @@ import time
 import urllib
 import urllib2
 import requests
-import unicodecsv
 from bs4 import BeautifulSoup
 
 reload(sys)
