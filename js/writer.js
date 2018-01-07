@@ -1,5 +1,6 @@
- // main svg
-    var svg = d3.select("svg"),
+
+    // main svg
+    var svg = d3.select("#svg"),
             width = +svg.attr("width"),
             height = +svg.attr("height"),
             g = svg.append("g").attr("transform", "translate(20,0)");       // move right 20px.
@@ -7,7 +8,7 @@
     // x-scale and x-axis
     var experienceName = ["", "Basic 1.0","Alright 2.0","Handy 3.0","Expert 4.0","Guru 5.0"];
     var formatSkillPoints = function (d) {
-        return experienceName[d % 6];
+        return experienceName[d % 1];
     }
     var xScale =  d3.scaleLinear()
             .domain([0,5])
@@ -30,7 +31,7 @@
     var stratify = d3.stratify()            // This D3 API method gives cvs file flat data array dimensions.
             .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
 
-    d3.csv("/data/writer.csv", row, function(error, data) {
+    d3.csv("data/writer.csv", row, function(error, data) {
         if (error) throw error;
 
         var root = stratify(data);
@@ -46,7 +47,7 @@
                             + "C" + (d.parent.y + 100) + "," + d.x
                             + " " + (d.parent.y + 100) + "," + d.parent.x
                             + " " + d.parent.y + "," + d.parent.x;
-                }
+                });
 
         // Setup position for every datum; Applying different css classes to parents and leafs.
         var node = g.selectAll(".node")
@@ -106,7 +107,7 @@
                     .attr("transform", "translate(7," + (height - 15) + ")")
                     .call(d3.axisBottom()
                             .scale(xScale)
-                            .ticks(5)
+                            .ticks(10)
                             .tickSize(-height, 0, 0)
                             .tickFormat("")
                     );

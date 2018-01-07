@@ -183,7 +183,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .title {
-    padding-bottom: 60px;
+    padding-bottom: 30px;
 }
 
 .title h2 {
@@ -453,7 +453,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #services .title {
-    padding-bottom: 125px;
+    padding-bottom: 60px;
 }
 
 .service-block {
