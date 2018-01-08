@@ -49,7 +49,7 @@ def GetTag():
             tag_list = re.findall(r'.*?<a href="/tag/(.*?)">.*?', str(items))
             for tag in tag_list:
                 tag_name = "".join(tag.split())
-                GetFilmPage(tag, per_tag_page)
+                GetFilmPage(tag, per_tag_page + starpageNumber)
                 time.sleep(tag_sleep_time * 60)
     return True
 
