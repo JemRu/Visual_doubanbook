@@ -7,7 +7,7 @@ option = {
         axisPointer: {
             type: 'line',
             lineStyle: {
-                color: 'rgba(0,0,0,0.2)',
+                color: 'rgba(255,255,255,0.2)',
                 width: 1,
                 type: 'solid'
             }
@@ -29,9 +29,12 @@ option = {
         axisTick: {},
         axisLabel: {},
         type: 'value',
-        min: 2000,
-        max: 2015,
+        min: '2000',
+        max: '2015',
         splitNumber: 16,
+        nameTextStyle: {
+        	color: 'white'
+        },
         axisPointer: {
             animation: true,
             label: {
@@ -42,7 +45,8 @@ option = {
             show: true,
             lineStyle: {
                 type: 'dashed',
-                opacity: 0.2
+                opacity: 0.2,
+                color: 'white'
             }
         }
     },
