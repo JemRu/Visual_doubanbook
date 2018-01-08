@@ -12,11 +12,11 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 ####################################################################################################
-per_tag_page    = 4    #每个小标签爬几页
-starpageNumber  = 0    #在第几页开始爬
-per_tag_skip    = 8    #在小标签内跳过的步长，例如1就是每页都爬，2就是1,3,5,7,9
-tag_sleep_time  = 2    #每爬完一个tag休息2分钟
-page_sleep_time = 1    #每爬一个小标签内的一页休息1分钟 
+per_tag_page    = 8    #结束
+starpageNumber  = 4    #起始
+per_tag_skip    = 1    #在小标签内跳过的步长，例如1就是每页都爬，2就是1,3,5,7,9
+tag_sleep_time  = 0    #每爬完一个tag休息2分钟
+page_sleep_time = 0    #每爬一个小标签内的一页休息1分钟 
 ####################################################################################################
 
 classes_name = ""
@@ -44,26 +44,25 @@ def GetTag():
         print "maybe blocked!"
     for items in soup.find_all('div',{'class':'article'}):
         classes_list = re.findall(r'.*?<a class="tag-title-wrapper" name="(.*?)">.*?', str(items))
-        for classes_detail in classes_list:
-            classes_name = "".join(classes_detail.split())
-            tag_list = re.findall(r'.*?<a href="/tag/(.*?)">.*?', str(items))
-            for tag in tag_list:
-                tag_name = "".join(tag.split())
-                GetFilmPage(tag, per_tag_page + starpageNumber)
-                time.sleep(tag_sleep_time * 60)
+        #for classes_detail in classes_list:
+        classes_name = "".join(classes_list[0].split())
+        tag_list = re.findall(r'.*?<a href="/tag/(.*?)">.*?', str(items))
+        for tag in tag_list:
+            tag_name = "".join(tag.split())
+            GetFilmPage(tag, per_tag_page)
+            time.sleep(tag_sleep_time * 60)
     return True
 
 def GetFilmPage(TagName, pangeNumber):
     global classes_name
     global tag_name
-    global starpageNumber
     
     TagUrl  = 'https://book.douban.com/tag/{tag}?start={start}&type=T'
     headers = BrowserHeaders()
     for pages in range(starpageNumber, pangeNumber):
         print TagName
         start_num = pages * per_tag_skip * page_step
-        print "    crawling page%d..." % (start_num/20 + 1)
+        print "    crawling page%d..." % (start_num)
         Tagurl   = TagUrl.format(start = start_num, tag = urllib.quote(TagName))    
         try:
             request  = urllib2.Request(Tagurl, headers = headers)
