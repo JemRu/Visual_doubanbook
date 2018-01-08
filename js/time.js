@@ -187,33 +187,201 @@ function dashboard(id, fData){
         return {type:d, freq: d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
     });    
     
+    
     // calculate total frequency by state for all segment.
     var sF = fData.map(function(d){return [d.State,d.total];});
-
+	console.log(sF);
+	
     var hG = histoGram(sF), // create the histogram.
         pC = pieChart(tF), // create the pie-chart.
         leg= legend(tF);  // create the legend.
 }
 
-	
+//直接读入
+// 	d3.json("data/time-book.json", function(error, data) {
+//	 	if (error) return console.warn(error);
+//	 	//console.log(data);
+//	 	var freqData = data;
+//	 	dashboard('#dashboard',freqData);
+//	 });
+
 	var freqData=[
-	{State:'2000',freq:{literature:4786, fashion:1319, culture:249, life:253, sdministered:254, science:166}}
-	,{State:'2001',freq:{literature:1101, fashion:412, culture:674, life:333, sdministered:254, science:166}}
-	,{State:'2002',freq:{literature:932, fashion:2149, culture:418, life:163, sdministered:254, science:166}}
-	,{State:'2003',freq:{literature:832, fashion:1152, culture:1862, life:243, sdministered:254, science:166}}
-	,{State:'2004',freq:{literature:4481, fashion:3304, culture:948, life:273, sdministered:254, science:166}}
-	,{State:'2005',freq:{literature:1619, fashion:167, culture:1063, life:123, sdministered:254, science:166}}
-	,{State:'2006',freq:{literature:1819, fashion:247, culture:1203, life:533, sdministered:254, science:166}}
-	,{State:'2007',freq:{literature:4498, fashion:3852, culture:942, life:263,sdministered:254,science:166}}
-	,{State:'2008',freq:{literature:797, fashion:1849, culture:1534, life:363,sdministered:254,science:166}}
-	,{State:'2009',freq:{literature:162, fashion:123, culture:471, life:333,sdministered:254,science:166}}
-	,{State:'2010',freq:{literature:362, fashion:379, culture:471, life:743,sdministered:254,science:166}}
-	,{State:'2011',freq:{literature:462, fashion:379, culture:471, life:453,sdministered:254,science:166}}
-	,{State:'2012',freq:{literature:262, fashion:379, culture:471, life:363,sdministered:254,science:166}}
-	,{State:'2013',freq:{literature:552, fashion:379, culture:471, life:553,sdministered:254,science:166}}
-	,{State:'2014',freq:{literature:342, fashion:379, culture:471, life:123,sdministered:254,science:166}}
-	,{State:'2015',freq:{literature:622, fashion:379, culture:471, life:743,sdministered:254,science:166}}
-	
-	];
-	
+    {
+        "State": 2000,
+        "freq": {
+            "literature": 39,
+            "fashion": 18,
+            "culture": 26,
+            "life": 7,
+            "sdministered": 12,
+            "science": 11
+        }
+    },
+    {
+        "State": 2001,
+        "freq": {
+            "literature": 40,
+            "fashion": 37,
+            "culture": 45,
+            "life": 11,
+            "sdministered": 14,
+            "science": 11
+        }
+    },
+    {
+        "State": 2002,
+        "freq": {
+            "literature": 63,
+            "fashion": 32,
+            "culture": 38,
+            "life": 16,
+            "sdministered": 16,
+            "science": 19
+        }
+    },
+    {
+        "State": 2003,
+        "freq": {
+            "literature": 73,
+            "fashion": 35,
+            "culture": 63,
+            "life": 25,
+            "sdministered": 24,
+            "science": 24
+        }
+    },
+    {
+        "State": 2004,
+        "freq": {
+            "literature": 91,
+            "fashion": 62,
+            "culture": 62,
+            "life": 31,
+            "sdministered": 31,
+            "science": 34
+        }
+    },
+    {
+        "State": 2005,
+        "freq": {
+            "literature": 94,
+            "fashion": 95,
+            "culture": 97,
+            "life": 49,
+            "sdministered": 33,
+            "science": 34
+        }
+    },
+    {
+        "State": 2006,
+        "freq": {
+            "literature": 110,
+            "fashion": 102,
+            "culture": 103,
+            "life": 42,
+            "sdministered": 38,
+            "science": 62
+        }
+    },
+    {
+        "State": 2007,
+        "freq": {
+            "literature": 106,
+            "fashion": 117,
+            "culture": 101,
+            "life": 85,
+            "sdministered": 54,
+            "science": 49
+        }
+    },
+    {
+        "State": 2008,
+        "freq": {
+            "literature": 71,
+            "fashion": 107,
+            "culture": 113,
+            "life": 80,
+            "sdministered": 47,
+            "science": 44
+        }
+    },
+    {
+        "State": 2009,
+        "freq": {
+            "literature": 111,
+            "fashion": 113,
+            "culture": 105,
+            "life": 93,
+            "sdministered": 68,
+            "science": 70
+        }
+    },
+    {
+        "State": 2010,
+        "freq": {
+            "literature": 104,
+            "fashion": 142,
+            "culture": 124,
+            "life": 107,
+            "sdministered": 48,
+            "science": 52
+        }
+    },
+    {
+        "State": 2011,
+        "freq": {
+            "literature": 104,
+            "fashion": 132,
+            "culture": 129,
+            "life": 109,
+            "sdministered": 62,
+            "science": 55
+        }
+    },
+    {
+        "State": 2012,
+        "freq": {
+            "literature": 94,
+            "fashion": 122,
+            "culture": 115,
+            "life": 113,
+            "sdministered": 54,
+            "science": 59
+        }
+    },
+    {
+        "State": 2013,
+        "freq": {
+            "literature": 66,
+            "fashion": 127,
+            "culture": 151,
+            "life": 119,
+            "sdministered": 78,
+            "science": 43
+        }
+    },
+    {
+        "State": 2014,
+        "freq": {
+            "literature": 77,
+            "fashion": 113,
+            "culture": 144,
+            "life": 105,
+            "sdministered": 63,
+            "science": 64
+        }
+    },
+    {
+        "State": 2015,
+        "freq": {
+            "literature": 89,
+            "fashion": 125,
+            "culture": 126,
+            "life": 127,
+            "sdministered": 70,
+            "science": 46
+        }
+    }
+];
+
 	dashboard('#dashboard',freqData);
